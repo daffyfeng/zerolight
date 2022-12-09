@@ -1,7 +1,7 @@
 <template>
     <el-card class="banner-card" shadow="always">
         <div class="card-body" data-warden-container>
-            <div class="banner" v-for="site in rcndSites" :key="site.siteId" @click="toggle(site.siteAddress)"
+            <div class="banner" v-for="site in recommendSites" :key="site.siteId" @click="toggle(site.siteAddress)"
                 :data-warden-siteId="site.siteId" :data-warden-siteAddress="site.siteAddress">
                 <el-image class="image" :src="site.siteIcon" :fit="'contain'" />
                 <span class="message">
@@ -18,12 +18,12 @@
 //例如：import {组件名称} from '{组件路径}';
 import { getRecommendSites } from '@/api/common';
 import { ref } from 'vue';
-const rcndSites = ref<[{
+const recommendSites = ref<[{
     siteId: 0, siteName: '', catalogId: '', siteAddress: '', siteDesc: '', siteOrder: 0, siteIcon: string
 }]>()
 
 getRecommendSites().then((data: any) => {
-    rcndSites.value = data
+    recommendSites.value = data
 })
 
 const toggle = (url: string) => {

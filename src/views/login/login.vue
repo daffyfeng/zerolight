@@ -15,7 +15,7 @@
                     @keyup.enter="submitForm(loginFormRef)" />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm(loginFormRef)">登录</el-button>
+                <el-button type="primary" @click="submitForm(loginFormRef)" :disabled="loading">登录</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -33,6 +33,7 @@ import lingguangIcon from '@/assets/img/lingguang.png'
 localStorageClear()
 
 const router = useRouter()
+const loading = ref(false)
 
 const data = reactive({
     loginForm: {
@@ -54,12 +55,15 @@ const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     formEl.validate((valid) => {
         if (valid) {
+            loading.value = true
             login(loginForm.value).then((data: any) => {
                 if (data.code === "1") {
                     localStorageSet("AuthToken", data.message)
                     localStorageSet("User", { useName: loginForm.value.useName })
                     router.push('/home')
                 }
+            }).finally(() => {
+                loading.value = false
             })
         }
     })
@@ -70,7 +74,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 
 // const resetForm = (formEl: FormInstance | undefined) => {
 //   if (!formEl) return;
-//   formEl.resetFields();
+//   formEl.clearValidate();
 // };
 </script>
 

@@ -10,7 +10,7 @@
         </el-carousel>
     </section>
     <section class="content-item">
-        <banner-bar></banner-bar>
+        <recommend-bar></recommend-bar>
         <group-bar v-for="g in catalogs" :catalog="g.catalogId" :catalogName="g.catalogName" :key="g.catalogId">
         </group-bar>
     </section>
@@ -21,7 +21,7 @@
 
 import { groupStore } from '@/store/group';
 import { computed } from 'vue';
-import bannerBar from '../components/bannerBar.vue';
+import recommendBar from '../components/recommendBar.vue';
 import groupBar from '../components/groupBar.vue';
 
 

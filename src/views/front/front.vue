@@ -24,17 +24,10 @@ import { localStorageSet, localStorageGet } from '@/utils/localstorage';
 
 import footerBar from './components/footerBar.vue'
 
-const groups = localStorageGet('groups')
 const store = groupStore()
-if (Object.keys(groups).length > 0) {
-    store.groups = groups
-} else {
-    getGroups().then((data) => {
-        store.groups = data
-        // 过期时间
-        localStorageSet("groups", data, 24)
-    })
-}
+getGroups().then((data) => {
+    store.groups = data
+})
 
 getBanners().then((data) => {
     store.banners = data

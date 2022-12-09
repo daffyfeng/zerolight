@@ -6,8 +6,9 @@
         </div>
         <div class="bar-body">
             <div class="website" v-for="site, i in showSites" :key="site.siteId">
-                <el-card class="website-card" shadow="hover">
-                    <div class="card-body" @click="toggle(site.siteAddress)"
+                <el-card class="website-card" shadow="hover" data-warden-container>
+                    <div class="card-body" @click="toggle(site.siteAddress)" :data-warden-siteId="site.siteId"
+                        :data-warden-siteAddress="site.siteAddress"
                         :class="{ odd: parseInt(i / 4 + '') % 2 === 1, even: parseInt(i / 4 + '') % 2 === 0 }">
                         <el-image class="image" :src="site.siteIcon" :fit="'contain'" />
                         <span class="title">{{ site.siteName }}</span>

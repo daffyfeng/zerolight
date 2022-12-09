@@ -9,7 +9,7 @@ export function searchSite(param: any) {
 }
 
 export function getGroups() {
-  return http.get("/search/catalog").then((data) => {
+  return http.get("/search/site/catalogs").then((data) => {
     return data as unknown as any[];
   });
 }
@@ -21,7 +21,7 @@ export function getBanners() {
 }
 
 export function getRecommendSites() {
-  return http.get("/manage/site/recommend");
+  return http.get("/site/recommend");
 }
 
 export function getWebsitesByCatalog(id: any) {
@@ -29,5 +29,5 @@ export function getWebsitesByCatalog(id: any) {
 }
 
 export function logSiteAccess(param: any) {
-  return http.post("/manage/site/access", param);
+  return http.post("/site/access", param);
 }

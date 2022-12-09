@@ -9,10 +9,13 @@
                 :width="item.width">
                 <template #default="scope">
                     <span v-if="item.type === 'date'">{{ formatDate(scope.row[item.prop]) }}</span>
+                    <span v-else-if="item.type === 'tag'" class="tag">
+                        <el-tag v-for="tag in scope.row[item.prop]" :key="tag">{{ tag }}</el-tag>
+                    </span>
                     <span v-else>{{ scope.row[item.prop] }}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="200px">
+            <el-table-column label="操作" width="150px">
                 <template #default="scope">
                     <el-button size="small" type="primary" :icon="Edit" @click="editData(scope.row)"></el-button>
                     <el-button size="small" type="danger" :icon="Delete" @click="deleteData(scope.row)"></el-button>
@@ -98,7 +101,8 @@ const handleSelectionChange = (val: any) => {
 }
 
 const editData = (data: any) => {
-    emits('editData', data)
+    const cloneData = JSON.parse(JSON.stringify(data))
+    emits('editData', cloneData)
 }
 
 const deleteData = (data: any) => {
@@ -121,6 +125,12 @@ defineExpose({ searchData, deleteData })
 
 </script>
 <style lang='scss' scoped>
+.custom-table {
+    .tag .el-tag {
+        margin-right: 4px;
+    }
+}
+
 .custom-table-pagination {
     margin-top: 20px;
     display: flex;

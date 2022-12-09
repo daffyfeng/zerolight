@@ -73,7 +73,11 @@ function emit(e: any) {
   //     : (timer = setTimeout(function () {
   //         send();
   //       }, MAX_WAITING_TIME));
-  logSiteAccess(e.params);
+  const params = {
+    siteId: e.params.siteId || e.params.siteid,
+    siteAddress: e.params.siteAddress || e.params.siteaddress,
+  };
+  logSiteAccess(params);
 }
 
 function send() {

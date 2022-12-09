@@ -213,7 +213,7 @@ const submit = (formEl: FormInstance | undefined) => {
 
 const close = (formEl: FormInstance | undefined) => {
     if (!formEl) return;
-    formEl.resetFields()
+    formEl.clearValidate()
     visible.value = false
 }
 

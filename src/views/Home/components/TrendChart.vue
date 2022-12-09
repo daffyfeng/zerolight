@@ -45,6 +45,9 @@ function updateEchart() {
                 xAxisIndex: [0]
             },
         ],
+        grid: {
+            left: 60
+        },
         axisPointer: {
             link: [
                 {
@@ -90,17 +93,35 @@ const timeline = ref<any[]>([])
 function getData() {
     const dayNum = props.type === '近30日' ? 30 : 0
     const type = props.type === '近30日' ? 2 : 1
+    timeline.value = []
+    pv.value = []
+    uv.value = []
+    if (type === 1) {
+        timeline.value = new Array(24).fill('').map((item, i) => { item = i + ':00'; return item })
+        pv.value = new Array(24).fill(0)
+        uv.value = new Array(24).fill(0)
+    }
     return Promise.allSettled([getPV(dayNum), getUV(dayNum)]).then(results => {
         console.log(results);
         results.forEach((result, i) => {
             if (result.status == "fulfilled") {
                 const { value } = result
-                timeline.value = []
-                value.forEach((item: any) => {
-                    const time = type === 1 ? item.time.split(' ')[1].replace(/:00/g, '') + ':00' : item.time.split(' ')[0].substring(5).replace('-', '.')
-                    timeline.value.push(time)
-                    i === 0 ? (pv.value.push(item.PV)) : (uv.value.push(item.UV))
-                });
+                if (type === 1) {
+                    value.forEach((item: any) => {
+                        let time = item.time.split(' ')[1].replace(/:00/g, '')
+                        time = parseInt(time)
+                        i === 0 ? (pv.value[time] = item.PV) : (uv.value[time] = item.UV)
+                    });
+
+                } else if (type === 2) {
+                    timeline.value = []
+                    value.forEach((item: any) => {
+                        const time = item.time.split(' ')[0].substring(5).replace('-', '.')
+                        timeline.value.push(time)
+                        i === 0 ? (pv.value.push(item.PV)) : (uv.value.push(item.UV))
+                    });
+                }
+
             }
         })
     })

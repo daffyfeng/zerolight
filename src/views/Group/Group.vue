@@ -40,9 +40,10 @@ import DialogForm from '@/components/DialogForm.vue';
 import { ElMessage, ElMessageBox, type FormInstance, type FormRules, type UploadFile, type UploadUserFile } from 'element-plus';
 import { Delete, Plus } from '@element-plus/icons-vue'
 import CustomTable from '@/components/CustomTable.vue';
-import { save, search, deleteGroups, deleteGroup } from "@/api/group"
+import { save, search, deleteGroups, deleteGroup, getAllGroups } from "@/api/group"
 import { groupStore } from '@/store/group';
 
+const store = groupStore()
 const dialogFormRef = ref<FormInstance>()
 const disabled = ref(false)
 const fileList = ref<UploadUserFile[]>([{
@@ -134,14 +135,23 @@ const submit = (formEl: FormInstance | undefined) => {
                     message: '保存成功',
                 })
                 searchData()
+                getGroups()
             })
         }
     })
 }
 
+const getGroups = () => {
+    getAllGroups().then((data) => {
+        store.groups = data
+    })
+}
+
+
+
 const close = (formEl: FormInstance | undefined) => {
     if (!formEl) return;
-    formEl.resetFields()
+    formEl.clearValidate()
     visible.value = false
     formData.value = { catalogName: '', catalogDesc: '' }
 }

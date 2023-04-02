@@ -73,7 +73,7 @@ router.beforeEach((to, from, next) => {
   // 进度条设置为0
   nprogress.start();
 
-  if (["/login", "/front"].indexOf(to.path) !== -1) {
+  if (["/login", "/front", "/more", "/disclaimer", "/search"].indexOf(to.path) !== -1) {
     next(); // 跳转到目标路径
     return;
   }

@@ -6,7 +6,7 @@
                 <el-image class="image" :src="site.siteIcon" :fit="'contain'" />
                 <span class="message">
                     <span class="title">{{ site.siteName }}</span>
-                    <span class="desc">{{ site.siteDesc }}</span>
+                    <span class="desc">&nbsp;&nbsp;&nbsp;&nbsp;{{ site.siteDesc }}</span>
                 </span>
             </div>
         </div>
@@ -51,6 +51,7 @@ const toggle = (url: string) => {
             .image {
                 width: $banner-size;
                 height: $banner-size;
+                flex-shrink: 0;
             }
 
             .message {
@@ -58,10 +59,12 @@ const toggle = (url: string) => {
                 display: flex;
                 flex-direction: column;
 
-                .title {}
+                .title {
+                    margin: 0px 16px
+                }
 
                 .desc {
-                    margin-top: 4px;
+                    margin: 4px 16px 0px;
                 }
             }
 

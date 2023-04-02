@@ -12,7 +12,7 @@
                         :class="{ odd: parseInt(i / 4 + '') % 2 === 1, even: parseInt(i / 4 + '') % 2 === 0 }">
                         <el-image class="image" :src="site.siteIcon" :fit="'contain'" />
                         <span class="title">{{ site.siteName }}</span>
-                        <span class="desc">{{ site.siteDesc }}</span>
+                        <span class="desc"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ site.siteDesc }}</span>
                     </div>
                 </el-card>
             </div>
@@ -61,7 +61,7 @@ getWebsitesByCatalog(props.catalog).then((data: any) => {
 })
 
 const showSites = computed(() => {
-    return websites.value?.slice(0, 8)
+    return route.path != '/more' ? websites.value?.slice(0, 8) : websites.value
 })
 
 const showMore = () => {
@@ -155,7 +155,9 @@ const toggle = (url: string) => {
                 margin: 16px auto 12px;
             }
 
-            .desc {}
+            .desc {
+                margin: 0 16px;
+            }
 
         }
 

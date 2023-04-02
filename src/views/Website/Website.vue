@@ -213,7 +213,7 @@ const deleteData = (data: any = []) => {
                 const siteIds = data.map(d => d.siteId)
                 deleteApi = deleteWebsites(siteIds)
             } else {
-                deleteApi = deleteWebsite(data.catalogId)
+                deleteApi = deleteWebsite(data.siteId)
             }
 
             deleteApi.then(() => {
@@ -247,13 +247,14 @@ const submit = (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     formEl.validate((valid) => {
         if (valid) {
-            if (!formData.value.siteIcon && !formData.value.siteImage) {
-                ElMessage({
-                    type: 'error',
-                    message: '请先上传图标',
-                })
-                return false
-            }
+            // 创建时可以不要图片
+            // if (!formData.value.siteIcon && !formData.value.siteImage) {
+            //     ElMessage({
+            //         type: 'error',
+            //         message: '请先上传图标',
+            //     })
+            //     return false
+            // }
             const formClone = new FormData()
             Object.keys(formData.value).forEach((key: string) => {
                 if (key !== 'siteTag')

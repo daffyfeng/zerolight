@@ -38,7 +38,7 @@ searchSite({ 'searchKey': route.query.key }).then(data => {
 <style lang='scss' scoped>
 .search-result {
     width: $content-width;
-    margin-top: 60px;
+    margin-top: 80px;
 
     .result-title {
         font-size: 18px;

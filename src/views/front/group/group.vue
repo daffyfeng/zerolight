@@ -12,13 +12,25 @@ import { groupStore } from '@/store/group';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import groupBar from '../components/groupBar.vue';
+import { getGroups, getBanners } from '@/api/common';
 const route = useRoute()
 const catalogId = route.query.catalogId as unknown as number
 const catalogName = ref('')
 
 const store = groupStore()
-const group = store.groups.find((g: { catalogId: any; }) => g.catalogId == catalogId)
-catalogName.value = group.catalogName
+if (store.groups && store.groups.length != 0) {
+    const group = store.groups.find((g: { catalogId: any; }) => g.catalogId == catalogId)
+    catalogName.value = group.catalogName
+}else {
+    getGroups().then((data) => {
+        store.groups = data
+        const group = store.groups.find((g: { catalogId: any; }) => g.catalogId == catalogId)
+        catalogName.value = group.catalogName
+    })
+}
+
+
+
 
 
 
@@ -26,6 +38,6 @@ catalogName.value = group.catalogName
 <style lang='scss' scoped>
 .more-site {
     width: $content-width;
-    margin: 60px auto;
+    margin: 80px auto;
 }
 </style>

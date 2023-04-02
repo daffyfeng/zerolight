@@ -3,7 +3,7 @@
     <div class='custom-table'>
         <el-table ref="bannerTable" :data="tableData" header-row-class-name="custom-table-header"
             :header-cell-style="headerStyle" table-layout="fixed" :border="true" stripe
-            @selection-change="handleSelectionChange">
+            @selection-change="handleSelectionChange" :max-height="550">
             <el-table-column type="selection" width="55" />
             <el-table-column v-for="item in tableHeader" v-bind:key="item.prop" :prop="item.prop" :label="item.label"
                 :width="item.width">
